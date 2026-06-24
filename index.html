@@ -215,8 +215,1142 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxt0307.github.io/2026/06/24/%E5%85%B3%E4%BA%8EOpenClaw/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Misaka10137">
+      <meta itemprop="description" content="个人博客 - 记录技术、生活与思考">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaka10137">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/06/24/%E5%85%B3%E4%BA%8EOpenClaw/" class="post-title-link" itemprop="url">关于OpenClaw</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-06-24 14:30:31 / 修改时间：23:16:04" itemprop="dateCreated datePublished" datetime="2026-06-24T14:30:31+08:00">2026-06-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WordPress%E8%BF%81%E7%A7%BB/" itemprop="url" rel="index"><span itemprop="name">WordPress迁移</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>想起来自己还有个网站，也是玩了一段时间的AI东西，自己也搞了个龙虾这个玩，还是挺好玩的，哈哈哈。</p>
+<p>部署上之后能帮忙操作电脑，还能自己写代码，优化，搞到GitHub上的都是龙虾帮助写出来的自动化脚本，太爽了龙虾！！</p>
+<p>记一下碰到的问题，消耗算力问的我迪克色i破冲的十块钱都花完了。。。。虽然deepseek很便宜，但是还是太贵了。。。</p>
+<p>过于简单的龙虾部署，甚至看官方文档打开powershell就可以输上命令开始了。Gemini说因为国内网络所以下载比较慢，建议挂上梯子把。</p>
+<p>第一个准备阶段，Gemini不赖“你看最下面那行红字： I understand this is personal-by-default and shared&#x2F;multi-user use requires lock-down. Continue?（我了解此程序默认供个人使用，多人共享需要采取安全限制措施。是否继续？）直接耶耶的斯next了”   （PS：要是我买的Gemini会员不是黑号我就接Gemini的API了，deepseek真不是因为花钱多哥们不喜欢你，唉唉。）</p>
+<p>还是Gemini神力！</p>
+<p>现在的界面显示它在问你选择哪种 <strong>设置模式 (Setup mode)</strong>，有两个选项：</p>
+<p><strong>Manual setup</strong>：手动设置。这个适合非常硬核的老手，会问一堆复杂的参数。</p>
+<p><strong>QuickStart (recommended)</strong>：快速开始（强烈推荐）。它后面括号里也写了，这是推荐的本地安装方式，以后如果想改还可以再调。</p>
+<p><strong>灰字</strong>：“Recommended local setup. Change details later with openclaw configure.”（推荐本地安装。<strong>以后可以通过 openclaw configure 命令来修改细节。</strong>）</p>
+<p>依旧Gemini告诉的手动设置情况，这么多直接快速模式了我看。</p>
+<p>“Manual setup”（手动设置）是给那些需要深度定制运行环境的高级开发者准备的。如果你选了它，向导就不会帮你自动配置那些繁琐的默认参数，而是会像查户口一样，详细询问你一堆底层的技术细节。</p>
+<p>通常来说，进入手动设置后，它会挨个问你以下这些问题：</p>
+<ul>
+<li><p><strong>网关与网络接口 (Gateway &amp; Network)：</strong> 服务运行在哪个特定端口？是只允许你这台电脑本机访问（127.0.0.1），还是开放给局域网甚至公网访问（0.0.0.0）？</p>
+</li>
+<li><p><strong>大模型的底层参数：</strong> 除了问你要接哪个模型和 API Key，还会让你手动输入 API 的自定义转发地址 (Base URL)、模型的最大上下文长度 (Context Window)、甚至是生成回复的随机性参数 (Temperature)。</p>
+</li>
+<li><p><strong>沙盒与工具权限 (Sandbox &amp; Permissions)：</strong> 就像上一步那个安全警告里提到的，它会详细问你要不要给 AI 开放执行电脑系统命令的权限？允不允许它读取或修改你的本地文件？要把它的活动范围死死限制在哪个文件夹里？</p>
+</li>
+<li><p><strong>存储格式：</strong> 机器人的记忆、日志和配置文件要存在哪里？用什么数据库格式？</p>
+</li>
+</ul>
+<p><strong>直接按回车</strong>：现在绿色的箭头 &gt; 已经默认停在 <strong>OpenAI</strong> 上了，直接按下键盘的 <strong>回车键 (Enter)</strong>。     </p>
+<p>这应该是选择模型的API？应该是这个吧，没细问解释，反正openai有豆包和deepseek就够我用了，下面的Google感觉应该是Gemini？可惜我Gemini虽然是pro，但是买的黑号，惜败于此。。</p>
+<p>当然我也详细问了下解释—————————————————————-</p>
+<p><strong>OpenAI (ChatGPT&#x2F;Codex sign-in or API key)</strong>：使用 OpenAI 公司的 ChatGPT 模型服务。<strong>（咱们要接入豆包，必须选这一项！因为豆包的代码接口是完全模仿和兼容 OpenAI 标准的）</strong></p>
+<p><strong>Anthropic</strong>：使用 Anthropic 公司的 Claude 系列模型服务（比如著名的 Claude 3.5 Sonnet）。</p>
+<p><strong>xAI (Grok)</strong>：使用马斯克旗下 xAI 公司的 Grok 模型服务。</p>
+<p><strong>Google</strong>：使用谷歌公司的 Gemini（原名 Bard）系列大模型服务。</p>
+<p><strong>OpenRouter</strong>：这是一个聚合型的大模型 API 平台，你可以在它上面充值并统一调用海量的各种开源或闭源大模型。</p>
+<p><strong>More…</strong>：点击后会展示更多其他的大模型供应商（比如本地跑模型的 Ollama 等）。</p>
+<p><strong>Skip for now</strong>：现在先跳过，暂时不配置任何大模型大分子，等以后有空了再来设置。</p>
+<p>开始准备最好的烧钱链接了，唉唉</p>
+<p>也是轻松复制sky-XXXXXXXXXXXXXXXXXXXXXXXX了，powershell复制是右键点一下还真不习惯吧。</p>
+<p>中间那个红色的 Install timed out: Codex 只是因为国内网络下载某个附加的代码插件超时了，已自动跳过，继续配。最下面，它目前自作主张把你默认的模型设置成了 openai&#x2F;gpt-5.5</p>
+<p><strong>选择手动输入</strong> 按一下键盘上的 <strong>向下方向键 (↓)</strong>，把绿色的箭头 &gt; 移动到第二个选项：<strong>Enter model manually</strong> （手动输入模型名称）输完回车。</p>
+<p>提示下豆包火山的名称应该是：doubao-seed-2-0-mini-260428这种类型的</p>
+<p>你想把这个机器人放到哪个聊天软件里去工作？（Select channel）</p>
+<p>排在第一的 ClickClack 通常是它自带的一个本地测试网页或终端聊天窗口，如果你只想先试试机器人能不能说话，选这个最省事。</p>
+<p>讲道理，微信这个东西我真搞不上接管个人的微信，总是在个人微信生成一个AI，能帮我解答的，那这个我怎么不去用AstrBot，又轻松又简单的，唉唉。</p>
+<p>让OpenClaw自己配环境，去GitHub研究了WeChatPadPro，可惜已经不更新了，配不明白，放弃了也是，有懂的教教我。。。</p>
+<p>然后就是注意下面这些：因为你刚才选的是 QuickStart（快速向导），它确实为了省事，<strong>直接跳过了让你填 Base URL（自定义接口地址）的步骤</strong>！这意味着向导结束后，机器人可能会“傻傻地”默认去连美国 OpenAI 的服务器，从而导致连不上咱们的豆包或 DeepSeek。   PS：实际上我一直挂着梯子也是连不上，默认连到GPT了啊我看。</p>
+<p>要不要给你的机器人加上“联网搜索”的超能力？（Search provider）</p>
+<p><strong>Skip for now (暂不配置，以后再说)</strong>。先回车配置好先运行试试，出问题研究很麻烦，晚上搞这种一不注意就到第二天了。后续让龙虾自己去优化自己吧。</p>
+<p>现在要配置机器人的‘技能’（Skills）吗？</p>
+<p><strong>Eligible: 14</strong>     意思是它检测到现在的电脑环境，有 14 个基础技能是可以直接让它学会的。大大方方回车next            （PS：skill这个东西我一直理解的是智能体的一些插件的功能，不知道对不对，感觉就是插件的功能啊，但是用AstrBot里面skill又跟插件商店没在一起，难道不一样吗，也没问Gemini，用到再问下吧，会用就行！）</p>
+<p>要不要现在就下载这些额外技能所需的运行文件（依赖项）？</p>
+<p>现在去勾选它们，电脑又要花好长时间去下载各种杂七杂八的文件，而且非常容易因为网络问题卡住或者报错，导致前功尽弃，我选择先跑起来，这些后面龙虾自己去优化吧。</p>
+<p><strong>[•] Skip for now (Continue without installing dependencies)</strong> (暂不安装，直接继续)</p>
+<p><strong>Please select at least one option. Press space to select, enter to submit</strong> （请至少选择一个选项。按空格键选中，按回车键提交）。</p>
+<p>带方括号 [ ] 的菜单是个<strong>多选菜单</strong></p>
+<p>确保绿色光标停在第一行的 <strong>Skip for now</strong> 上，然后重重地按一下键盘最长的 <strong>空格键 (Space)</strong>。确认 **Skip for now **被成功“打上勾”之后，再按下 <strong>回车键 (Enter)</strong>。</p>
+<p>要不要为 goplaces 这个地图&#x2F;地点技能设置 Google 的 API 密钥（GOOGLE_PLACES_API_KEY）？</p>
+<p>去额外申请 Google 的密钥又是麻烦。直接敲下键盘的 **回车键 (Enter) **拒绝</p>
+<p><strong>要不要为 openai-whisper-api 设置 OpenAI 的 API 密钥？</strong> （Whisper 是一个用来做语音识别、把语音转成文字的插件）。</p>
+<p>目的是赶紧部署上，所以直接拒了回车下一步了。    （PS：后悔了，早知道留下来了，今天面试还重新搞出来这个插件去识别面试的语音，后面准备复盘用，但是好像是Google那边的免费V4语音识别，不是很好用，好多识别不出来，好麻烦。。。）</p>
+<p><strong>要不要为 sag 设置 ElevenLabs 的 API 密钥？</strong> （ElevenLabs 是一家做 AI 语音合成非常厉害的公司，这个功能是用来让机器人“开口说话”发语音的。）</p>
+<p>也是直接拒了回车。想想这个AI会说话还是挺带感的，以后有机会在玩吧。</p>
+<p><strong>要不要启用 Hooks（钩子机制）？</strong> （这是给高级开发者准备的，用来在机器人执行命令前后自动触发一些隐藏操作的功能。）</p>
+<p>你觉得你是高级开发者吗？我觉得我是！钩子这个东西总感觉AI会出现幻觉，后来问了Gemini</p>
+<p><strong>“钩子（Hooks）”就像是给机器人设定的“自动连锁反应”或者“暗道”。</strong></p>
+<p>你看它上面写的那段英文解释：Hooks let you automate actions when agent commands are issued.（钩子允许你在向 AI 发送指令时，自动执行一些<strong>隐藏的附带操作</strong>。）</p>
+<p>我给你举个通俗的例子：</p>
+<ul>
+<li><p><strong>没有钩子的时候：</strong> 你对机器人输入 &#x2F;new（意思是：开启一轮全新的对话，忘掉前面聊的），机器人就乖乖地清空当前的记忆，重新开始。</p>
+</li>
+<li><p><strong>装了特定钩子之后（比如截图里的 session-memory）：</strong> 当你输入 &#x2F;new 时，这个“钩子”就会在后台偷偷起作用——它会在机器人清空当前记忆之前，<strong>自动把你刚才聊的那些有价值的信息打包，存到它的“长期记忆库”里</strong>。这样哪怕开了新对话，它以后也能想起来你以前说过什么。</p>
+</li>
+</ul>
+<p>这东西主要是给进阶用户用来“调教”机器人的自动化流程的。对于咱们初学者来说，现在勾选这些不仅没用，反而可能因为一些<strong>多余的后台操作</strong>导致咱们不知道它在干嘛。所以刚才让你选** Skip for now**（直接跳过）是绝对明智的选择！</p>
+<p><strong>“Hatch your agent”</strong>（孵化你的智能体）</p>
+<p><strong>“Your workspace is ready.”</strong>（你的工作区已经准备就绪）。</p>
+<p>算在哪里唤醒（Hatch）你的机器人</p>
+<p><strong>Hatch in Terminal (recommended)</strong>：直接在这个黑框框里唤醒它（官方推荐）。    这个还是很好用的，感觉比网页舒服点，黑框聊天真有人工智能的感觉吧</p>
+<p><strong>Hatch in Browser</strong>：打开网页浏览器跟它聊。</p>
+<p><strong>Hatch later</strong>：现在先不启动，稍后再说。</p>
+<p><strong>run error: Unknown model: openai&#x2F;deepseek-chat</strong></p>
+<p>因为去接美国的openAI的deepseek了，但是deepseek服务器在我们这里，所以报错需要换一下地址了。</p>
+<p><strong>（修改 Base URL）</strong></p>
+<p><strong>Ctrl + C</strong>（按一次没反应就连续按两次），强行退出这个聊天界面。</p>
+<p>回到正常的输入状态后，复制并粘贴      ** openclaw configure**</p>
+<p><strong>网关运行在哪里？(Where will the Gateway run?)</strong></p>
+<p>Local (this machine)    运行在本地</p>
+<p>只要不是涉及到模型（Model&#x2F;Provider）或者地址（URL）的，一律next</p>
+<p><strong>你要配置什么？ (What do you want to configure?)</strong></p>
+<p>按一下键盘上的 <strong>下方向键 (↓)</strong>，把绿色的箭头 &gt; 从第一行的 Workspace 移动到第二行的 <strong>Model</strong> 上。回车改模型的名字</p>
+<p>现在这个界面是让你重新确认模型名字</p>
+<p><strong>Tab</strong>: select（按 Tab 键选中&#x2F;取消） • <strong>Type</strong>: to search（直接打字搜索）。</p>
+<p>现在绿色高亮条正好停在 openai&#x2F;gpt-5.5 上，请按一下你键盘左上方的 <strong>Tab 键</strong>（或者空格键）。 让它前面的 [+] 变回空的 [ ]，这一步很重要，不然它会把你之前的设置顶掉。</p>
+<p>取消勾选后，直接在键盘上敲打这串字符： <strong>openai&#x2F;deepseek-chat</strong> （注意：为什么要加 openai&#x2F; 前缀呢？你看截图最上面那行黄字，系统提示咱们在这个配置文件里必须加上这个前缀才能识别。）    敲完回车。</p>
+<p>好卡啊这网速，好垃圾的网速，网速好在继续接上吧，Gemini先保存一下</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxt0307.github.io/2022/02/06/CAD2014%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E6%A0%8F%E7%82%B9%E5%87%BB%E8%8F%9C%E5%8D%95%E5%B0%B1%E5%B4%A9%E6%BA%83%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%E5%88%86%E4%BA%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Misaka10137">
+      <meta itemprop="description" content="个人博客 - 记录技术、生活与思考">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaka10137">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/06/CAD2014%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E6%A0%8F%E7%82%B9%E5%87%BB%E8%8F%9C%E5%8D%95%E5%B0%B1%E5%B4%A9%E6%BA%83%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%E5%88%86%E4%BA%AB/" class="post-title-link" itemprop="url">CAD2014使用命令栏点击菜单就崩溃的原因和解决办法分享</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-06 11:20:13" itemprop="dateCreated datePublished" datetime="2022-02-06T11:20:13+08:00">2022-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-24 23:16:04" itemprop="dateModified" datetime="2026-06-24T23:16:04+08:00">2026-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WordPress%E8%BF%81%E7%A7%BB/" itemprop="url" rel="index"><span itemprop="name">WordPress迁移</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>对于AutoCAD 2014闪退，官方指出Win10不支持AutoCAD 2014，闪退是由于Win10升级安装了The .NET Framework 4.7导致的。 官方给出的一种解决方案是用记事本修改程序文件夹下的acad.exe.config文件，把下面代码复制粘贴在<runtime></runtime>之间，保存，重新打开程序，点上方菜单和工具不再闪退，问题解决。</p>
+<!--All assemblies in AutoCAD are fully trusted so there's no point generating publisher evidence-->
+<runtime>
+<generatePublisherEvidence enabled="false"/>
+<AppContextSwitchOverrides value="Switch.System.Windows.Input.Stylus.DisableStylusAndTouchSupport=true"/> 
+</runtime>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxt0307.github.io/2020/10/22/%E9%85%B7%E5%AE%B6%E4%B9%90%E6%B8%B2%E6%9F%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Misaka10137">
+      <meta itemprop="description" content="个人博客 - 记录技术、生活与思考">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaka10137">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/22/%E9%85%B7%E5%AE%B6%E4%B9%90%E6%B8%B2%E6%9F%93/" class="post-title-link" itemprop="url">酷家乐渲染</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-22 03:25:09" itemprop="dateCreated datePublished" datetime="2020-10-22T03:25:09+08:00">2020-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-24 23:16:04" itemprop="dateModified" datetime="2026-06-24T23:16:04+08:00">2026-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WordPress%E8%BF%81%E7%A7%BB/" itemprop="url" rel="index"><span itemprop="name">WordPress迁移</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>儿童房</p>
+<p>卫生间</p>
+<p>厨房1</p>
+<p>玄关</p>
+<p>儿童房2</p>
+<p>客厅1</p>
+<p>主卧</p>
+<p>次卧</p>
+<p>厨房2</p>
+<p>客厅2</p>
+<p>客厅2-1</p>
+<p>客厅1-1</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxt0307.github.io/2020/07/29/%E5%AE%A4%E5%86%85%E6%B8%B2%E6%9F%93%E2%80%94%E2%80%94%E6%B5%8B%E8%AF%95%E6%88%90%E6%9E%9C%E5%9B%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Misaka10137">
+      <meta itemprop="description" content="个人博客 - 记录技术、生活与思考">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaka10137">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/29/%E5%AE%A4%E5%86%85%E6%B8%B2%E6%9F%93%E2%80%94%E2%80%94%E6%B5%8B%E8%AF%95%E6%88%90%E6%9E%9C%E5%9B%BE/" class="post-title-link" itemprop="url">室内渲染——测试成果图</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-29 15:20:39" itemprop="dateCreated datePublished" datetime="2020-07-29T15:20:39+08:00">2020-07-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-24 23:16:04" itemprop="dateModified" datetime="2026-06-24T23:16:04+08:00">2026-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WordPress%E8%BF%81%E7%A7%BB/" itemprop="url" rel="index"><span itemprop="name">WordPress迁移</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>客厅1</p>
+<p>客厅2</p>
+<p>玄关1</p>
+<p>玄关2</p>
+<p>玄关3</p>
+<p>卧室1-1</p>
+<p>卧室1-2</p>
+<p>卧室2-1</p>
+<p>卧室2-2</p>
+<p>厨房1</p>
+<p>厨房2</p>
+<p>卫生间1</p>
+<p>卫生间2</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxt0307.github.io/2020/06/08/3D%E5%AE%A4%E5%86%85%E6%B8%B2%E6%9F%93%E5%8F%82%E6%95%B02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Misaka10137">
+      <meta itemprop="description" content="个人博客 - 记录技术、生活与思考">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaka10137">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/08/3D%E5%AE%A4%E5%86%85%E6%B8%B2%E6%9F%93%E5%8F%82%E6%95%B02/" class="post-title-link" itemprop="url">3D室内渲染参数2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-08 09:46:36" itemprop="dateCreated datePublished" datetime="2020-06-08T09:46:36+08:00">2020-06-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-24 23:16:04" itemprop="dateModified" datetime="2026-06-24T23:16:04+08:00">2026-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WordPress%E8%BF%81%E7%A7%BB/" itemprop="url" rel="index"><span itemprop="name">WordPress迁移</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="3D室内渲染时一般参数设置"><a href="#3D室内渲染时一般参数设置" class="headerlink" title="3D室内渲染时一般参数设置"></a>3D室内渲染时一般参数设置</h4><p>测试渲染就用VR的默认渲染就可以了。<br>效果图渲染参数设置如下:<br>VR缓冲帧启用,去掉渲染到内存帧，使用3D默认分辨率。<br><strong>全局开关里</strong>只需要去掉默认灯光的选项。<br><strong>图像采样里</strong>:图像采样器类型:自适应准蒙特卡洛。<br>**抗锯齿:**选择M开头那个。参数不变。多的自适应准蒙特卡洛里参数也不变。一般都是1 4。<br><strong>间接照明</strong>:开。默认的勾选折射，千万不要点反射。1次反弹下拉用发光贴图2次用灯光缓冲.<br>**灯光缓冲:**细分:1000 进程4采样大小0.02，勾选显示计算状态.其他默认<br>**散焦:**关闭<br>**环境:**全局光开关，只勾选第一个。<br>**RQMC:**适应数量 :0.85 噪波:0.001 最小采样值20 其他默认<br>**颜色映射:**线性倍增:三项全部2.3 勾选后边的”子项亮度输出”和”亮度背景”还有”影响背景”.<br>其他默认。<br>到此一个适应大多效果图的渲染器设置完成。。<br>PS:要根据不同的场景，环境，</p>
+<h4 id="在3D室内设计中怎样给床贴图最真实"><a href="#在3D室内设计中怎样给床贴图最真实" class="headerlink" title="在3D室内设计中怎样给床贴图最真实"></a>在3D室内设计中怎样给床贴图最真实</h4><p>先给好贴图。然后给菲尼尔反射。然后加个凹凸。</p>
+<h4 id="塑胶地板3d参数该怎么去设置步骤是"><a href="#塑胶地板3d参数该怎么去设置步骤是" class="headerlink" title="塑胶地板3d参数该怎么去设置步骤是"></a>塑胶地板3d参数该怎么去设置步骤是</h4><p>**塑胶地板3d参数  **<br>1.打开材质编辑器，将明暗器基本参数调整为金属，高光级别80，光泽度70。 <br>2.反射-贴图-光想跟踪 <br>3.在背景里选择适当图片作为背景图片 <br>4.将材质赋予物体并渲染，就可以啦。</p>
+<h4 id="求3D一般材质常规设置参数地板-墙面-玻璃-陶瓷-不锈钢"><a href="#求3D一般材质常规设置参数地板-墙面-玻璃-陶瓷-不锈钢" class="headerlink" title="求3D一般材质常规设置参数地板,墙面,玻璃,陶瓷,不锈钢,"></a>求3D一般材质常规设置参数地板,墙面,玻璃,陶瓷,不锈钢,</h4><p>玻璃的反光率15% 折射率90%<del>100%<br>金属一般反射率60%</del>70%<br>至于地版和大理石只要有bitmap就可以了<br>大理石加10%的反光 打蜡的地板有5%的反光金属<br>颜色RGB 色彩亮度 光亮度 慢射 镜面 光泽度 反射 BMP(分形噪声)单位:英寸 凹凸%<br><strong>铝箔</strong> 180,180,180 有 0 32 90 中 65 .0002,.00002,.0002 8<br><strong>铝箔(钝)</strong> 180,180,180 有 0 50 45 低 35 .0002,.00002,.0002 15<br><strong>铝</strong> 220,223,227 有 0 35 25 低 40 .0002,.00002,.0002 15<br><strong>磨亮的铝</strong> 220,223,227 有 0 35 65 中 50 .0002,.00002,.0002 12<br><strong>黄铜</strong> 191,173,111 有 0 40 40 中 40 .0002,.00002,.0002 20<br><strong>磨亮的黄铜</strong> 191,173,111 有 0 40 65 中 50 .0002,.00002,.0002 10<br><strong>镀铬合金</strong> 150,150,150 无 0 40 40 低 25 .0002,.00002,.0002 35<br><strong>镀铬合金</strong>2 220,230,240 有 0 25 30 低 50 .0002,.00002,.0002 20<br><strong>镀铬铝</strong> 220,230,240 有 0 15 60 中 65 .0002,.00002,.0002 15<br><strong>镀铬塑料</strong> 220,230,240 有 0 15 60 低 50 .0002,.00002,.0002 15<br><strong>镀铬钢</strong> 220,230,240 有 0 15 60 中 70 .0002,.00002,.0002 5<br><strong>纯铬</strong> 220,230,240 有 0 15</p>
+<h4 id="室内设计-VR阳光怎么调-具体参数说仔细点"><a href="#室内设计-VR阳光怎么调-具体参数说仔细点" class="headerlink" title="室内设计 VR阳光怎么调,具体参数说仔细点"></a>室内设计 VR阳光怎么调,具体参数说仔细点</h4><p>打太阳光的效果的方法有好多种~ 可以用目标平行光 可以IES阳光 还有VR阳光<br><strong>VR阳关的参数:</strong><br>激活 打钩<br>不可见<br>浊度 3.0<br>臭氧 0.35<br>强度倍增 0.65<br>大小倍增 1.7<br>阴影细分 15<br>阴影偏移 0.2mm<br>光子发射半径 50mm</p>
+<h4 id="3D瓷砖的参数怎么调"><a href="#3D瓷砖的参数怎么调" class="headerlink" title="3D瓷砖的参数怎么调"></a>3D瓷砖的参数怎么调</h4><p>进入VR材质，选择VRAYMTL，进入  COLOR SELECTOR:DIFFUSE 面板<br>将RGB全改为30灰色<br>再将REFIECTION 反射面板中的 REFL.GLOSSINESS<br>调节为0.85 SUBDIVS调为3<br>（REFL.GLOSSINESS 代表反射模糊，数值越大越清楚，越小越模糊.SUBDIVS为采样参数，数值越大，模糊越精细）<br>设置完成后进入BRDF面板,单击DIFFUSE贴图<br>（贴图我就不说了，你肯定会）<br>单击OK确认贴图，再将DIFFUSE通道中的贴图拖拽到BUMP，模式为关联（在弹出的COPY MAP面板中选择INSTANCE）<br>然后将BUMP的数值改为30.  即可</p>
+<h4 id="vray-sun（vray太阳光）重点参数和常用数值"><a href="#vray-sun（vray太阳光）重点参数和常用数值" class="headerlink" title="vray sun（vray太阳光）重点参数和常用数值 :"></a>vray sun（vray太阳光）重点参数和常用数值 :</h4><p>**  1.turbidity (混浊度)  ** 指空气中的清洁度数值越大阳光就越暖. </p>
+<p>      一般情况下.白天正午的时候 数值为3到5 </p>
+<p>      下午的时候为6到9 </p>
+<p>      傍晚的时候可以到15.最值为20, </p>
+<p>      要记住.阳光的冷暖也和自身和地面的角度有关. </p>
+<p>      越垂直越冷,角度越小越暖. </p>
+<p>**  2.ozone{臭氧}  **一般对阳光没有太多影响,对VR的天光有影响,一般不调. </p>
+<p>**  3.intensity multplier｛强度｝**  一般时候和第一个参数有关，第一个参数越大阳光就越暖也就越暗，就要加大这个参数。一般的进时候.为0.03~0.1，要反复试。</p>
+<p>**  4.size multplier ｛指太阳的大小｝  **太阳越大也就是这个参数越大，就越会产生远处虚影效果。一般的时候这个参数为3到6。</p>
+<p>    这个参数与下面的**shadow subdivs｛阴影细分｝**参数有关。</p>
+<p>    size multplier值越大，对应shadow subdivs的值就要越大。因为当物体边有阴影虚影的时候。细分也就越大，不然就会有很多噪点，一般的时候数值为6到15 </p>
+<p>**  5.shadow bias｛阴影偏移}  **这个参数和MAX的灯的原理是一样的. </p>
+<p>**  6.photon emit radius {VRsun本身大小控制}**   对光没有影响，可以不用管。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxt0307.github.io/2020/06/07/3D%E5%AE%A4%E5%86%85%E7%81%AF%E5%85%89%E8%AE%BE%E7%BD%AE%E5%8F%82%E6%95%B01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Misaka10137">
+      <meta itemprop="description" content="个人博客 - 记录技术、生活与思考">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaka10137">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/07/3D%E5%AE%A4%E5%86%85%E7%81%AF%E5%85%89%E8%AE%BE%E7%BD%AE%E5%8F%82%E6%95%B01/" class="post-title-link" itemprop="url">3D室内灯光设置参数1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-07 13:46:32" itemprop="dateCreated datePublished" datetime="2020-06-07T13:46:32+08:00">2020-06-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-24 23:16:04" itemprop="dateModified" datetime="2026-06-24T23:16:04+08:00">2026-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WordPress%E8%BF%81%E7%A7%BB/" itemprop="url" rel="index"><span itemprop="name">WordPress迁移</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="筒灯"><a href="#筒灯" class="headerlink" title="筒灯"></a>筒灯</h3><p>**创建：**灯光&#x2F;光度度&#x2F;目标灯光 </p>
+<p>**参数修改： **</p>
+<p>常规参数：灯光属性 启用 </p>
+<p>阴影：启用Vray阴影 </p>
+<p>灯光分布(类型)： 光度学(web) 选择光度学文件 （保存有多光&#x2F;中间亮….） </p>
+<p>过滤颜色： 暖黄色（红绿蓝 245，222，191） </p>
+<p>强度：cd 600.</p>
+<h3 id="台灯"><a href="#台灯" class="headerlink" title="台灯"></a>台灯</h3><p>**创建：**灯光&#x2F;Vray&#x2F;VR灯光 </p>
+<p><strong>参数修改：</strong> 类型：常规开 球体 </p>
+<p>强度：倍增器 70 </p>
+<p>模式：颜色 暖色（红250 绿210 蓝175）</p>
+<p>大小：半径 70</p>
+<p>选项：不可见勾选 </p>
+<p>采样：细分20</p>
+<h3 id="壁灯"><a href="#壁灯" class="headerlink" title="壁灯"></a>壁灯</h3><p>**创建：**灯光&#x2F;光度学&#x2F;自由灯光 </p>
+<p><strong>参数修改</strong>： </p>
+<p>常规参数：灯光属性 启用 </p>
+<p>阴影：启用 Vray阴影 </p>
+<p>灯光分布（类型）：光度学web 选择光度学文件 （保存有壁灯IES文件….） </p>
+<p>过滤颜色： 暖色（红绿蓝 245，210，170） </p>
+<p>强度：cd 800</p>
+<h3 id="灯槽"><a href="#灯槽" class="headerlink" title="灯槽"></a>灯槽</h3><p>两种方法 </p>
+<p>(1) 用材质来表现（圆形灯槽） </p>
+<p>(2) 用VR平面光（直线造型） </p>
+<p><strong>A、材质表现</strong></p>
+<p>选定发光的多边形 </p>
+<p>M打开材质编辑&#x2F; 新建一个材质球&#x2F; 指定为Vray灯光材质 </p>
+<p>颜色：淡黄色 </p>
+<p>亮度：4 (位于颜色旁边) </p>
+<p>赋予材质</p>
+<p><strong>B、VR平面光表现（面板灯）</strong> </p>
+<p>**创建：**灯光&#x2F;Vray&#x2F;VR灯光 </p>
+<p><strong>参数修改：</strong> </p>
+<p>参数：类型：平面 </p>
+<p>颜色：淡黄色（250，246，222） </p>
+<p>倍增器：3 </p>
+<p>大小：4400*1600 </p>
+<p>选项：不可见 勾选</p>
+<h3 id="辅助灯-吊灯"><a href="#辅助灯-吊灯" class="headerlink" title="辅助灯 吊灯"></a>辅助灯 吊灯</h3><p>**创建：**灯光&#x2F;Vray&#x2F;VR灯光 </p>
+<pre><code>      位置  比如门洞口 
+</code></pre>
+<p><strong>参数修改：</strong> 倍增器：2 </p>
+<p>颜色：淡黄色 </p>
+<p>选项：不可见 勾选   </p>
+<p><strong>创建</strong>：灯光&#x2F;Vray&#x2F;VR灯光 </p>
+<pre><code>      位置  比如天花板 
+</code></pre>
+<p><strong>参数修改：</strong> </p>
+<p>类型：球体 </p>
+<p>倍增器：8 </p>
+<p>颜色：淡黄色 </p>
+<p>半径：120 </p>
+<p>选项：不可见 勾选</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxt0307.github.io/2020/05/15/%E5%BB%BA%E7%AD%91%E8%AF%BE%E7%A8%8B%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Misaka10137">
+      <meta itemprop="description" content="个人博客 - 记录技术、生活与思考">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaka10137">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/15/%E5%BB%BA%E7%AD%91%E8%AF%BE%E7%A8%8B%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">建筑课程部分笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-15 08:41:26" itemprop="dateCreated datePublished" datetime="2020-05-15T08:41:26+08:00">2020-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-24 23:16:04" itemprop="dateModified" datetime="2026-06-24T23:16:04+08:00">2026-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WordPress%E8%BF%81%E7%A7%BB/" itemprop="url" rel="index"><span itemprop="name">WordPress迁移</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="园林形式布局的确定"><a href="#园林形式布局的确定" class="headerlink" title="园林形式布局的确定"></a>园林形式布局的确定</h2><ul>
+<li>根据园林的性质</li>
+<li>根据不同文化传统</li>
+<li>意识形态的不同决定园林的表现形式</li>
+<li>根据不同的环境条件</li>
+</ul>
+<p>———————————————————————————————————————————————</p>
+<h2 id="工程投标概念，作用，特点"><a href="#工程投标概念，作用，特点" class="headerlink" title="工程投标概念，作用，特点"></a>工程投标概念，作用，特点</h2><p>作用：1，提高经济效益和社会效益。2，提升企业竞争力。3，健全建筑市场经济体系。4，打击贪污腐败。</p>
+<p>特点：1，竞争性。2，程序性。3，规范性。4，一次性。5，技术经济性。</p>
+<h2 id="对工程招标管理"><a href="#对工程招标管理" class="headerlink" title="对工程招标管理"></a>对工程招标管理</h2><p>1，依法核查必须采用招标方式</p>
+<p>2，对项目招标条件的监督</p>
+<p>3，对招标有关文件的检查备案</p>
+<p>4，对招标活动的监督。</p>
+<p>5，查处招标投标活动中的违法行为</p>
+<h2 id="公共资源交易中心的运行原则"><a href="#公共资源交易中心的运行原则" class="headerlink" title="公共资源交易中心的运行原则"></a>公共资源交易中心的运行原则</h2><ul>
+<li>信息公开原则</li>
+<li>依法管理原则</li>
+<li>公平竞争原则</li>
+<li>属地进入原则</li>
+<li>办事公正原则</li>
+</ul>
+<h2 id="工程招标的分类"><a href="#工程招标的分类" class="headerlink" title="工程招标的分类"></a>工程招标的分类</h2><h4 id="按照建设程序分类"><a href="#按照建设程序分类" class="headerlink" title="按照建设程序分类"></a>按照建设程序分类</h4><ul>
+<li>前期咨询招标</li>
+<li>勘察设计招标</li>
+<li>材料设备采购招标</li>
+<li>施工招标工程招标失败极容易给国家造成巨大的损失。失败主要原因出在招标文件上，招标文件核心是评标方法的设置。编辑高质量的招标文件，设置合理的评标方法，是编制文件的关键工作所在。公开招标的范围：1，《招标投标法》第三条规定2，国家发展计划委员根据《招标投标法》第三条，制定了《工程建设项目招标范围和规模标准规定》（一）大型基础设施、公用事业等关系社会公共利益、公众安全的项目：（二）全部或者部分使用国有资金投资或国家融资的项目；（三）使用国际组织或者外国政府贷款、援助资金的项目。自行招标的条件：1）具有项目法人资格（或者法人资格）；2）具有招标项目规模和复杂程度相适应的工程技术、预概算、财务和工程管理等方面专业技术力量；3）有从事同类工程建设项目招标的经验；4）拥有三名以上取得招标职业资格的专职招标业务人员；‘5）熟悉和掌握招标投标法及有关法规规章委托招标代理的概念</li>
+</ul>
+<p>———————————————————————————————————————————————</p>
+<h2 id="中国传统家具发展史"><a href="#中国传统家具发展史" class="headerlink" title="中国传统家具发展史"></a>中国传统家具发展史</h2><p>起居方式分为“<strong>席地坐</strong>”和“<strong>垂足坐</strong>”两个时期</p>
+<h4 id="中国古代家具的发展，时期："><a href="#中国古代家具的发展，时期：" class="headerlink" title="中国古代家具的发展，时期："></a>中国古代家具的发展，时期：</h4><p>一是商与西周，以青铜器为主；</p>
+<p>二是春秋-汉，出现大量的漆器及家具品类；</p>
+<p>三是南北朝-唐中期，本土家具开始吸收外来元素，出现高坐、低矮家具混用现象，但仍以低矮家具为主；</p>
+<p>四是晚唐-北宋，高坐、低矮家具混用的时代，天平倾向高坐家具；</p>
+<p>五是南宋-明初，高坐家具开始主导，出现硬木（榉木）家具；</p>
+<p>六是明中-清初，硬木家具艺术的时代；</p>
+<p>七是清中-晚期，繁复雕刻家具的时代，家具艺术走向末路。</p>
+<h4 id="史前、商周时期的家具"><a href="#史前、商周时期的家具" class="headerlink" title="史前、商周时期的家具"></a>史前、商周时期的家具</h4><p><strong>萌芽</strong>发生时期：史前、夏商、西周。特点：<strong>神秘威严</strong></p>
+<p>社会状态：席地坐，包括跪坐。</p>
+<p>家具类型：除了青铜家具外，出现了木制，漆制家具。</p>
+<h4 id="春秋战国、秦时期的家具"><a href="#春秋战国、秦时期的家具" class="headerlink" title="春秋战国、秦时期的家具"></a>春秋战国、秦时期的家具</h4><p>这一时期是传统家具发展的<strong>成长壮大时期</strong>。<strong>特点</strong>是造型古朴、用料粗硕、装饰单纯而粗犷</p>
+<p>社会背景：奴隶社会走向封建社会的变革时期</p>
+<p>技术水平：春秋时期出现匠师鲁班，木业制作已有了斧、锯、凿、铲等工具，测量有了规矩准绳。</p>
+<p>家具特点：仍保持席地跪坐习惯，家具使用以床为中心，漆木家具进入繁荣时期。</p>
+<p>**工艺与装饰特点：**为分铸、焊接、镶嵌等多种工艺。这一时期髹漆工艺已达到想当水平</p>
+<p><strong>装饰手法</strong>有彩绘、浮雕、透雕和阴刻。</p>
+<p><strong>装饰纹样</strong>产生以重叠缠绕、四方延展的四方连续图案</p>
+<p><strong>装饰色彩</strong>以黑为底，配以红、绿、黄、金、银等多种颜料。</p>
+<h4 id="西汉、三国时期的家具"><a href="#西汉、三国时期的家具" class="headerlink" title="西汉、三国时期的家具"></a>西汉、三国时期的家具</h4><p>这一时期是传统家具发展的<strong>发展时期也是低矮型家具的代表时期</strong>。</p>
+<p>家具的类型发展到了床、几案、屏风、柜、箱、衣架等多种类型。<strong>胡床</strong>由西域传入中原。</p>
+<p><strong>社会背景</strong>：开辟了通往西域的贸易通道，促进了与西域诸国的文化交流</p>
+<p><strong>家具特点</strong>：如几案二合一，面板加宽；出现了有围屏的榻，出现了形似柜橱的带矮足的箱子。</p>
+<p><strong>家具类型</strong>：以漆木、竹制、玉制和陶制家具为代表，分为坐卧类、置物类、储藏与屏蔽类家具。</p>
+<p><strong>装饰手法</strong>：多用云气纹，流云飞动的装饰颇具时代特点，同时增加了绳纹、齿纹、三角形、菱形、波形等到几何纹样以及植物纹样，线条流畅。图案向着程式化、图案化发展。体现兴旺繁盛的汉代国风。</p>
+<h4 id="西晋、南北朝时期的家具"><a href="#西晋、南北朝时期的家具" class="headerlink" title="西晋、南北朝时期的家具"></a>西晋、南北朝时期的家具</h4><p><strong>家具的发展普及时期</strong></p>
+<p>同时是一个重要的过度融合时期；上承两汉，下启隋唐，从低型家具逐渐向高型家具进行转变</p>
+<p><strong>社会背景</strong>：是充满民族斗争的时代。由于西北少数民族进入中原，导致长期跪坐礼仪以及生活习俗变化。</p>
+<p><strong>家具特点</strong>：家具由矮向高发展，品种增加，造形结构更加丰富完善。东汉末年“胡床”普及民间。</p>
+<p><strong>装饰手法</strong>：随着佛教传入，装饰出现火焰、莲花纹等。漆家具仍然是当时高档家具主流，并出现斑漆、绿沉漆、漆画等新装饰技艺。</p>
+<h4 id="隋、唐、五代时期家具"><a href="#隋、唐、五代时期家具" class="headerlink" title="隋、唐、五代时期家具"></a>隋、唐、五代时期家具</h4><p><strong>家具的发展普及时期</strong></p>
+<p><strong>特点：华丽润妍、丰满端庄</strong></p>
+<p><strong>社会背景</strong>：隋、唐时期是中国封建社会发展的顶峰。开凿大运河，促进南北交流，对外贸易发达。</p>
+<p><strong>家具种类</strong>：唐代处于两种起居方式交替。因而家具品种和样式大为增加。</p>
+<p><strong>家具造型</strong>：造型浑圆、丰满、装饰华丽。一改前朝的古朴之风，呈现出华贵气派。</p>
+<p>此时家具特点：<strong>丰满华丽、宽大厚重，显得浑圆丰满，具有博大的气势、稳定的感觉</strong>。</p>
+<p>到了五代时期，基本进入了高坐垂足的起居时代。</p>
+<p><strong>造型特点</strong>：变唐代家具的厚重为轻简、变浑圆为秀直尚未形成成熟的时代风格。</p>
+<p><strong>装饰特点</strong>：不大追求花饰，趋于朴素无华。</p>
+<p><strong>工艺技术</strong>：家具涂漆以研磨和擦漆多边为主。</p>
+<h4 id="两宋、元时期的家具"><a href="#两宋、元时期的家具" class="headerlink" title="两宋、元时期的家具"></a>两宋、元时期的家具</h4><p>家具的<strong>成熟鼎盛</strong>时期也是高型家具大发展时期</p>
+<p>宋代家具在总体风格上呈现出<strong>挺拔、秀丽</strong>的特点。</p>
+<p><strong>社会背景</strong>：宋代时期由于北方辽、金不断入侵，连年战争，形成两宋与辽金对峙局面。</p>
+<p><strong>家具种类</strong>：高型家具品种基本齐全。</p>
+<p><strong>家具特点</strong>：在家具结构上突出的变化是梁柱式的框架结构代替了唐代沿用的箱形壶门结构。</p>
+<p>宋代家具表现特点：典雅柔美。</p>
+<p><strong>技术工艺</strong>：宋代手工业分工细密，手工艺技术和生产工具更加进步，宋代起居方式完全进入垂足坐时代。</p>
+<h4 id="明代家具"><a href="#明代家具" class="headerlink" title="明代家具"></a>明代家具</h4><p>是中国传统家具发展的<strong>成熟鼎盛</strong>时期</p>
+<p>家具表现出<strong>结构严谨、线条简洁流畅、做工精湛、用料考究、造型典雅隽秀和尺寸与比例科学合理等特点</strong>，形成举世闻名的”<strong>明式家具</strong>“风格。</p>
+<p>—————————————————————————————————————————————</p>
+<h2 id="先秦时期的室内设计"><a href="#先秦时期的室内设计" class="headerlink" title="先秦时期的室内设计"></a>先秦时期的室内设计</h2><h4 id="一、夏、商与西周时期"><a href="#一、夏、商与西周时期" class="headerlink" title="一、夏、商与西周时期"></a>一、夏、商与西周时期</h4><p><strong>夏、商时期的宫殿</strong>。夏、商时期，一般居民的居住条件十分简陋，基本沿袭了新石器晚期的各种建筑形式。奴隶主阶级通过高大的宫室建筑形象，来表达王权的威势与至高无上。</p>
+<p>目前可见的商代宫室建筑整体格局在二里头的基础上有所发展，**开始突破单栋建筑的限制，由一组建筑共同完成。<strong>利用建筑群组的形式来完成</strong>“前朝后寝”**空间功能格局。</p>
+<p><strong>西周宫室建筑</strong>周代城市大都由“内城”和“外城”两大部分组成，内城为王者所居，外围设居民区。</p>
+<p>西周宫室建筑仍沿袭夏、商传统，在后夯土台基上建造单层建筑，属于土木混合结构，但在规模及施工技术上有了较大进步。</p>
+<h4 id="二、春秋、战国时期"><a href="#二、春秋、战国时期" class="headerlink" title="二、春秋、战国时期"></a>二、春秋、战国时期</h4><p>春秋时，宫室都属台榭式建筑，以阶梯形夯土台为核心，倚台逐层修建木构房屋，借助土台，聚合在一起的单层房屋形成类似多层大型建筑的外观。战国时出现更多的城邑和宫室。</p>
+<h3 id="先秦时期的建筑装饰和室内设计"><a href="#先秦时期的建筑装饰和室内设计" class="headerlink" title="先秦时期的建筑装饰和室内设计"></a>先秦时期的建筑装饰和室内设计</h3><p>夏、商时期室内居住面仍沿袭新石器时期的处理手法，防潮保暖的同时，使得屋内墙面光洁美观。商代时，除在建筑木构件上施彩外，其室内也开始使用彩绘的<strong>壁画</strong>。</p>
+<p>周代建筑主要是土木混合结构形式，地面处理沿袭商、周以来的做法。并开始出现花砖铺装。</p>
+<p><strong>瓦</strong>的出现是古代建筑的一个重要进步，西周出现板瓦和筒瓦，开始局部用瓦，后来全覆以瓦。</p>
+<p>西周青铜兽足方鬲上表现出了当时建筑的局部形象。周代室内墙壁的装饰较为特殊的是金属构件的使用。该时期建筑“堂”前檐空敞无墙体，檐下多张挂大幕。</p>
+<h3 id="先秦时期的家具陈设设计"><a href="#先秦时期的家具陈设设计" class="headerlink" title="先秦时期的家具陈设设计"></a>先秦时期的家具陈设设计</h3><p><strong>席与床</strong></p>
+<p>先秦时期，人们在室内保持着**“”席地而坐“的起居方式**，并由此衍生出一系列相适应的室内家具陈设。夏代宫殿中，以开始用带有装饰花纹的茵席，并配低矮家具。周代家具陈设”以席为中心“，种类丰富。在席的使用上，随着身份，铺设的层数有所不同，以多层为贵。</p>
+<p>家具：<strong>几、俎、案、屏</strong></p>
+<p><strong>”架“作为室内家具，较好地体现在了两种乐器上。</strong></p>
+<p><strong>（一）陶器</strong></p>
+<p>商代以前，陶器是素烧无釉的。到了商代，则有了在陶坯上涂釉的釉陶器。这类陶器数量不多，艺术性高，是奴隶主祭礼用的礼器，大都是模仿铜器制造的。</p>
+<p>西周原始瓷器很多，常见的有豆和罐。西周瓷器表面釉为素色和黄绿色</p>
+<p><strong>（二）漆器</strong></p>
+<p>战国时期漆器颇多。器身多是外黑内红，花纹颜色有白、黄、金、绿、黑、红等，战国早期漆木多以仿青铜礼器的风格出现。</p>
+<p><strong>（三）灯具</strong></p>
+<p>其质地主要有陶、铜两种。除常见的豆形灯，又有以人物，动物作为灯座或装饰的双座灯或多枝灯，在实现实用功能的同时，也起到了较强的室内装饰效果。</p>
+<h4 id="魏晋南北朝时期"><a href="#魏晋南北朝时期" class="headerlink" title="魏晋南北朝时期"></a>魏晋南北朝时期</h4><p>写实壁画增多</p>
+<p>——————————————————————————————————————————————————</p>
+<h2 id="3D-Max"><a href="#3D-Max" class="headerlink" title="3D Max"></a>3D Max</h2><h2 id="餐厅的类型"><a href="#餐厅的类型" class="headerlink" title="餐厅的类型"></a>餐厅的类型</h2><p>宴会厅，中（西）餐厅，自助餐厅，火锅餐厅，酒吧（茶吧，咖啡吧）餐厅，快餐厅等。除此之外，通常还有多功能餐厅，歌舞餐厅，花园餐厅，旋转餐厅，风味小吃餐厅，零点餐厅，料理厅，扒房等。</p>
+<h2 id="公共空间"><a href="#公共空间" class="headerlink" title="公共空间"></a>公共空间</h2><p>具有公共形式和社会性质的建筑室内空间。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxt0307.github.io/2020/04/15/%E4%BA%BA%E4%BD%93%E5%B7%A5%E7%A8%8B%E5%AD%A6%E5%B8%B8%E7%94%A8%E5%B0%BA%E5%AF%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Misaka10137">
+      <meta itemprop="description" content="个人博客 - 记录技术、生活与思考">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaka10137">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/15/%E4%BA%BA%E4%BD%93%E5%B7%A5%E7%A8%8B%E5%AD%A6%E5%B8%B8%E7%94%A8%E5%B0%BA%E5%AF%B8/" class="post-title-link" itemprop="url">人体工程学常用尺寸</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-15 02:13:02" itemprop="dateCreated datePublished" datetime="2020-04-15T02:13:02+08:00">2020-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-24 23:16:04" itemprop="dateModified" datetime="2026-06-24T23:16:04+08:00">2026-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WordPress%E8%BF%81%E7%A7%BB/" itemprop="url" rel="index"><span itemprop="name">WordPress迁移</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>人体工程学是室内设计中必不可少的一门专业知识，了解人体工程学可以使装修设计尺寸更符合人们的曰常行为和需要。  </p>
+<p>人体工程学内容主要包括以下几点：  </p>
+<p>***人体尺度  **</p>
+<p>***人体行为区域  **</p>
+<p>***常用家具设备尺寸  **</p>
+<p>***建筑尺度规范  **</p>
+<p>***视觉心理和空间  **</p>
+<h2 id="一、人体尺度"><a href="#一、人体尺度" class="headerlink" title="一、人体尺度"></a>一、人体尺度</h2><p>人体尺度，即人体在室内完成各种动作时的活动范围。设计人员要根据人体尺度来确定门的高宽度、踏步的高宽度、窗台阳台的高度、家具的尺寸及间距、楼梯平台、家内净高等室内心尺寸。常用的室内尺寸如下：  </p>
+<p>支撑墙体：厚度0.24m  </p>
+<p>室内隔墙断墙体：厚度0.12m  </p>
+<p>大门：门高2.0<del>2.4m，门宽0.90</del>0.95m  </p>
+<p>室内门：高1.9<del>2.0m左右、宽0.8</del>0.9m门套厚度0.1m  </p>
+<p>厕所、厨房门：宽0.8<del>0.9m、高1.9</del>2.0m  </p>
+<p>室内窗：高1.0m 左右窗台距地面高度0.9~1.0m  </p>
+<p>室外窗：高1.5m 窗台距地面高度1.0m  </p>
+<p>玄关：宽1.0m、墙厚0.24m  </p>
+<p>阳台：宽1.4<del>1.6m、长3.0</del>4.0m（一般与客厅的长度相同）  </p>
+<p>踏步：高0.15<del>0.16m、长0.99</del>1.15m、宽0.25m；扶手宽0.01m、扶手间距0.02m、中间的休息平台宽1.0m。  </p>
+<h2 id="二、常用家具尺寸"><a href="#二、常用家具尺寸" class="headerlink" title="二、常用家具尺寸"></a>二、常用家具尺寸</h2><h3 id="卧室："><a href="#卧室：" class="headerlink" title="卧室："></a>卧室：</h3><p>单人床：宽0.9m、1.05m、1.2m；长1.8m、1.86m、2.0m、2.1m；高0.35m~0.45m。  </p>
+<p>双人床：宽1.35m、1.5m、1.8m，长、高同上。  </p>
+<p>圆床：直径1.86m、2.125m 、2.424m。  </p>
+<p>矮柜：厚度0.35<del>0.45m、柜门宽度0.3</del>0.6m、高度0.6m。  </p>
+<p>衣柜：厚度0.6<del>0.65m、柜门宽度0.4</del>0.65m、高度2.0~2.2m。  </p>
+<h3 id="客厅："><a href="#客厅：" class="headerlink" title="客厅："></a>客厅：</h3><p>沙发：厚度0.8<del>0.9m、坐位高0.35</del>0.42m、背高0.7~0.9m。  </p>
+<p>单人式：长0.8~0.9m  </p>
+<p>双人式：长1.26~1.50m  </p>
+<p>三人式：长1.75~1.96m  </p>
+<p>四人式：长2.32~2.52m  </p>
+<h3 id="茶几："><a href="#茶几：" class="headerlink" title="茶几："></a>茶几：</h3><p>小型长方：长0.6<del>0.75m、宽0.45</del>0.6m、高度0.33~0.42m  </p>
+<p>大型长方：长1.5<del>1.8m、宽0.6</del>0.8m、高度0.33~0.42m  </p>
+<p>圆型：直径0.75&#x2F;0.9&#x2F;1.05&#x2F;1.2m,高度0.33~0.42m  </p>
+<p>正方型：宽0.75&#x2F;0.9&#x2F;1.05&#x2F;1.20&#x2F;1.35&#x2F;1.50m，高度0.33<del>0.42,但边角茶几有时稍高一些，为0.43</del>0.5m  </p>
+<h3 id="书房："><a href="#书房：" class="headerlink" title="书房："></a>书房：</h3><p>书桌：厚度0.45~0.7m（0.6m最佳）、高度0.75m。  </p>
+<p>书架：厚度0.25<del>0.4m、长度0.6</del>1.2m、高度1.8<del>2.0m，下柜高度0.8</del>0.9m  </p>
+<h3 id="餐厅："><a href="#餐厅：" class="headerlink" title="餐厅："></a>餐厅：</h3><p>椅凳：座面高0.42~0.44m、扶手椅内宽于0.46m  </p>
+<p>餐桌：中式一般高0.75<del>0.78m、西式一般高0.68</del>0.72m  </p>
+<p>方桌：宽1.20&#x2F;0.9&#x2F;0.75m  </p>
+<p>长方桌：宽0.8&#x2F;0.9&#x2F;1.05&#x2F;1.20m、长1.50&#x2F;1.65&#x2F;1.80&#x2F;2.1&#x2F;2.4m  </p>
+<p>圆桌：直径0.9&#x2F;1.2&#x2F;1.35&#x2F;1.50&#x2F;18m  </p>
+<h3 id="厨房："><a href="#厨房：" class="headerlink" title="厨房："></a>厨房：</h3><p>橱柜*作台：高度0.89~0.92m  </p>
+<p>平面*作区：厚度0.4~0.6m  </p>
+<p>抽油烟机与灶的距离：0.6~0.8m  </p>
+<p><em>作台上方的吊柜：距地面最小距离&gt;1.45m、厚度0.25~0.35m、吊柜与</em>作台之间的距离&gt;0.55m  </p>
+<h3 id="卫生间："><a href="#卫生间：" class="headerlink" title="卫生间："></a>卫生间：</h3><p>盥洗台：宽度为0.55~0.65m、高度为0.85m、盥洗台与浴缸之间应留约0.76m宽的通道。  </p>
+<p>淋浴房：一般为0.9X0.9m、高度2.0~2.0m  </p>
+<p>抽水马桶：高度0.68m、宽度0.38<del>0.48m 、进深0.68</del>0.72m</p>
+<h2 id="人体工程学尺寸"><a href="#人体工程学尺寸" class="headerlink" title="人体工程学尺寸"></a>人体工程学尺寸</h2><h3 id="1、墙面尺寸"><a href="#1、墙面尺寸" class="headerlink" title="1、墙面尺寸"></a>1、墙面尺寸</h3><p>(1)踢脚板高；80—200mm。</p>
+<p>(2)墙裙高：800—1500mm。</p>
+<p>(3)挂镜线高：1600—1800(画中心距地面高度)mm。</p>
+<h3 id="2．餐厅"><a href="#2．餐厅" class="headerlink" title="2．餐厅"></a>2．餐厅</h3><p>(1) 餐桌高：750—790mm。</p>
+<p>(2) 餐椅高；450—500mm。</p>
+<p>(3) 圆桌直径：二人500mm．二人800mm，四人900mm，五人1100mm，六人1100-1250mm，八人1300mm，十人l500mm，十二人1800mm。</p>
+<p>(4) 方餐桌尺寸：二人700×850(mm)，四人1350×850(mm)，八人2250×850(mm)，</p>
+<p>(5) 餐桌转盘直径；700—800mm。</p>
+<p>餐桌间距：(其中座椅占500mm)应大于500mm。</p>
+<p>(7) 主通道宽：1200—1300mm。</p>
+<p>内部工作道宽：600—900mm。</p>
+<p>(9) 酒吧台高：900—l050mm，宽500mm。</p>
+<p>(10) 酒吧凳高；600一750mm。</p>
+<h3 id="3．商场营业厅"><a href="#3．商场营业厅" class="headerlink" title="3．商场营业厅"></a>3．商场营业厅</h3><p>(1)单边双人走道宽：1600mm。</p>
+<p>(2)双边双人走道宽：2000mm。</p>
+<p>(3)双边三人走道宽：2300mm。</p>
+<p>(4)双边四人走道宽；3000mm。</p>
+<p>(5)营业员柜台走道宽：800mm。</p>
+<p>营业员货柜台：厚600mm，高：800—l 000mm。</p>
+<p>(7)单*背立货架：厚300—500mm，高：1800—2300mm。</p>
+<p>双*背立货架；厚；600—800mm，高：1800—2300mm</p>
+<p>(9)小商品橱窗：厚：500—800mm，高：400—1200mm。</p>
+<p>(10)陈列地台高：400—800mm。</p>
+<p>(11)敞开式货架：400—600mm。</p>
+<p>(12)放射式售货架：直径2000mm。</p>
+<p>(13)收款台：长：1600mm，宽：600mm</p>
+<h3 id="4．饭店客房"><a href="#4．饭店客房" class="headerlink" title="4．饭店客房"></a>4．饭店客房</h3><p>(1)标准面积：大：25平方米，中：16—18平方米，小：16平方米。</p>
+<p>(2)床：高：400—450mm，床*高：850—950mm。</p>
+<p>(3)床头柜：高500—700mm；宽：500—800mm。</p>
+<p>(4)写字台：长；1100—1500mm；宽450—600mml高700—750mm。</p>
+<p>(5)行李台，长9l0—1070mm宽500mm高400mm。</p>
+<p>衣柜：宽：800—1200mm高1600—2000mm深500mm。</p>
+<p>(7)沙发：宽：600一800mm高：350—400mm*背高1000mm</p>
+<p>衣架高：1700—1900mm。</p>
+<h3 id="5．卫生间"><a href="#5．卫生间" class="headerlink" title="5．卫生间"></a>5．卫生间</h3><p>(1)卫生间面积；3—5平方米。</p>
+<p>(2)浴缸长度；一般有三种1220、1520、1680mm；宽；720mm，高450mm。</p>
+<p>(3)坐便；750×350(mm)。</p>
+<p>(4)冲洗器：690×350(mm)。</p>
+<p>(5)盟洗盆：550×410(mm)。</p>
+<p>淋浴器高：2100mm。</p>
+<p>(7)化妆台；长：1350mm；宽450 mm。</p>
+<h3 id="6．会议室"><a href="#6．会议室" class="headerlink" title="6．会议室"></a>6．会议室</h3><p>(1)中心会议室客容量：会议桌边长600(mm)。</p>
+<p>(2)环式高级会议室客容量；环形内线长700—l 000mm。</p>
+<p>(3)环式会议室服务通道宽：600—800mm。</p>
+<h3 id="7．交通空间"><a href="#7．交通空间" class="headerlink" title="7．交通空间"></a>7．交通空间</h3><p>(1)楼梯间休息平台净空：等于或大于2100mm。</p>
+<p>(2)楼梯跑道净空：等于或大于2300mm。</p>
+<p>(3)客房走廊高；等于或大于2400mm。</p>
+<p>(4)两侧设座的综合式走廊宽度等于或大于2500mm。</p>
+<p>(5)楼梯扶手高；850—1100mm。</p>
+<p>门的常用尺寸：宽：850—1000mm。</p>
+<p>(7)宙的常用尺寸；宽；400—1800mm，(不包括组合式窗子)</p>
+<p>窗台高；800—1200mm。</p>
+<h3 id="8．灯具"><a href="#8．灯具" class="headerlink" title="8．灯具"></a>8．灯具</h3><p>(1)大吊灯最小高度：2400mm。</p>
+<p>(2)壁灯高：1500—1800mm。</p>
+<p>(3)反光灯槽最小直径：等于或大于灯管直径两倍。</p>
+<p>(4)壁式床头灯高：1200—1400mm。</p>
+<p>(5)照明开关高：1000mm。</p>
+<h3 id="9．办公家具"><a href="#9．办公家具" class="headerlink" title="9．办公家具"></a>9．办公家具</h3><p>(1)办公桌：长：1200—1600mm：宽：500—650mm 5高；700—800mm。</p>
+<p>(2)办公椅：高；400—450mm长×宽：450×450(mm)。</p>
+<p>(3)沙发：宽：600—800mm；高：350—400mm；*背面：1000mm。</p>
+<p>(4)茶几；前置型：900×400×400(高)( mm)；中心型：900x 900×400(mm)、</p>
+<p>700×700×400(mm)；左右型：600×400×400(mm)。</p>
+<p>(5)书柜：高：1800mm，宽：1200—1500mm；深：450—500mm书架：高：1800mm 6宽：1000—1300mm ；深：350—450mm。</p>
+<h3 id="在工地"><a href="#在工地" class="headerlink" title="在工地"></a>在工地</h3><p>1、标准红砖23<em>11</em>6；标准入户门洞0.9米<em>2米，房间门洞0.9米</em>2米，厨房门洞0.8米<em>2米，卫生间门洞0.7米</em>2米，标准水泥50kg&#x2F;袋。</p>
+<h3 id="在厨房"><a href="#在厨房" class="headerlink" title="在厨房"></a>在厨房</h3><p>　　1.吊柜和操作台之间的距离应该是多少？</p>
+<p>　　**60厘米。**从操作台到吊柜的底部，您应该确保这个距离。这样，在您可以方便烹饪的同时，还可以在吊柜里放一些小型家用电器。</p>
+<p>　　2.在厨房两面相对的墙边都摆放各种家具和电器的情况下，中间应该留多大的距离才不会影响在厨房里做家务？</p>
+<p>　　**120厘米。**为了能方便地打开两边家具的柜门，就一定要保证至少留出这样的距离。</p>
+<p>　　**150厘米。**这样的距离就可以保证在两边柜门都打开的情况下，中间再站一个人。</p>
+<p>　　3.要想舒服地坐在早餐桌的周围，凳子的合适高度应该是多少？</p>
+<p>　　**80厘米。**对于一张高110厘米的早餐桌来说，这是摆在它周围凳子的理想高度。因为在桌面和凳子之间还需要30厘米的空间来容下双腿。</p>
+<p>　　4.吊柜应该装在多高的地方？</p>
+<p>　　**145至150厘米。**这个高度可以使您不用垫起脚尖就能打开吊柜的门。 </p>
+<h3 id="在餐厅"><a href="#在餐厅" class="headerlink" title="在餐厅"></a>在餐厅</h3><p>　　1.一个供六个人使用的餐桌有多大？</p>
+<p>　　**120厘米。**这是对圆形餐桌的直径要求。</p>
+<p>　　*<em>140</em>70厘米。**这是对长方形和椭圆形捉制的尺寸要求。</p>
+<p>　　2.餐桌离墙应该有多远？</p>
+<p>　　**80厘米。**这个距离是包括把椅子拉出来，以及能使就餐的人方便活动的最小距离。</p>
+<p>　　3.一张以对角线对墙的正方形桌子所占的面积要有多大？</p>
+<p>　　<strong>180*180平方厘米</strong>这是一张边长90厘米，桌角离墙面最近距离为40厘米的正方形桌子所占的最小面积。</p>
+<p>　　4.桌子的标准高度应是多少？</p>
+<p>　　**72厘米。**这是桌子的中等高度，而椅子是通常高度为45厘米。</p>
+<p>　　5.一张供六个人使用的桌子摆起居室里要占多少面积？</p>
+<p>　　*<em>300</em>300厘米。*<em>需要为直径120厘米的桌子留出空地，同时还要为在桌子四周就餐的人留出活动空间。这个方案适合于那种大客厅，面积至少达到600</em>350厘米。</p>
+<p>　　6.吊灯和桌面之间最合适的距离应该是多少？</p>
+<p>　　**70厘米。**这是能使桌面得到完整的、均匀照射的理想距离。 </p>
+<h3 id="在卫生间"><a href="#在卫生间" class="headerlink" title="在卫生间"></a>在卫生间</h3><p>1．卫生间里的用具要占多大地方？ </p>
+<p>马桶所占的一般面积：**37厘米×60厘米 **</p>
+<p>悬挂式或圆柱式盥洗池可能占用的面积：**70厘米×60厘米 **</p>
+<p>正方形淋浴间的面积：**80厘米×80厘米 **</p>
+<p>浴缸的标准面积：<strong>160厘米×70厘米</strong> </p>
+<p>2．浴缸与对面的墙之间的距离要有多远？ </p>
+<p><strong>100厘米</strong>。想要在周围活动的话这是个合理的距离。即使浴室很窄，也要在安装浴缸时留出走动的空间。总之浴缸和其他墙面或物品之间至少要有60厘米的距离。 </p>
+<p>3．安装一个盥洗池，并能方便地使用，需要的空间是多大？ </p>
+<p><strong>90厘米×105厘米</strong>。这个尺寸适用于中等大小的盥洗池，并能容下另一个人在旁边洗漱。 </p>
+<p>4．两个洗手洁具之间应该预留多少距离？ </p>
+<p><strong>20厘米</strong>。这个距离包括马桶和盥洗池之间，或者洁具和墙壁之间的距离。 </p>
+<p>5．相对摆放的澡盆和马桶之间应该保持多远距离？ </p>
+<p><strong>60厘米</strong>。这是能从中间通过的最小距离，所以一个能相向摆放的澡盆和马桶的洗手间应该至少有180厘米宽。 </p>
+<p>6．要想在里侧墙边安装下一个浴缸的话，洗手间至少应该有多宽？ </p>
+<p><strong>180厘米</strong>。这个距离对于传统浴缸来说是非常合适的。如果浴室比较窄的话，就要考虑安装小型的带座位的浴缸了。 </p>
+<p>7．镜子应该装多高？</p>
+<p><strong>135厘米</strong>。这个高度可以使镜子正对着人的脸。</p>
+<h3 id="在卧室"><a href="#在卧室" class="headerlink" title="在卧室"></a>在卧室</h3><p>　　1 双人主卧室的最标准面积是多少？</p>
+<p>　　**12平方米。*<em>夫妻二人的卧室不能比这个在小了。在房间里除了床以外，还可以放一个双开门的衣柜（120</em>60厘米）和两个床头柜。在一个3*4.5米的房间里可以放更大一点的衣柜；或者选择小一点的双人床，再在抽屉和写字台之间选择其一。就可以在摆放衣柜的地方选择一个带更衣间的衣柜。</p>
+<p>　　2 如果把床斜放在角落里，要留出多大空间？</p>
+<p>**       360*360厘米。**这是适合于较大卧室的摆放方法，可以根据床头后面墙角空地的大小在拜访一个储物柜。</p>
+<p>　　3 两张并排摆放的床之间的距离应该有多远？</p>
+<p>　　**90厘米。**两张床之间除了能放下两个床头柜以外，还应该能让两个人自由走动。当然床的外侧也不例外，这样才能方便的清洁地板和整理床上用品。</p>
+<p>　　4 如果衣柜被放在了与床相对的墙边，那么两件家具这间的距离应该是多少？</p>
+<p>　　**90厘米。**这个距离是为了能方便地打开柜门而不至于被绊倒在床上</p>
+<p>　　5 衣柜应该有多高？</p>
+<p>　　**240厘米。**这个尺寸考虑到了在衣柜里能放下长一些的衣物（160厘米），并在上部留出了放换季衣物的空间（80厘米）</p>
+<p>　　6 要想容的下双人床、两个床头柜外加衣柜的侧面的话，一面墙应该有多大？</p>
+<p>　　*<em>420</em>420厘米。**这个尺寸的墙面可以放下一张160厘米宽的双人床，和侧面宽度为60厘米的衣柜，还包括床两侧的活动空间（两侧60——70厘米），以及柜门打开时所占用的空间（60厘米）。如果衣柜采用拉门，那么墙面只需要360厘米宽就够了 </p>
+<h3 id="在客厅"><a href="#在客厅" class="headerlink" title="在客厅"></a><strong>在客厅</strong></h3><p>　　1.长沙发与摆在它面前的茶几之间的正确距离是多少？</p>
+<p>　　*<em>30厘米。*<em>在一个（240</em>90*75高 厘米）的长沙发面前摆放一个（130</em>70*45高厘米）的长方形茶几是非常舒适的。两者之间的理想距离应该是能允许你一个人通过的同时又便于使用，也就是说不用站起来就可以方便地拿到桌上的杯子或者杂志。</p>
+<p>　　2.一个能摆放电视机的大型组合柜的最小尺寸应该是多少？</p>
+<p>　　*<em>200</em>50*180高 厘米。**这种类型的家具一般都是由大小不同的方格组成，高处部分比较适合用来摆放书籍，柜体厚度至少保持30厘米；而低处用于摆放电视的柜体厚度至少保持50厘米。同时组合柜整体的高度和横宽还要考虑与墙壁的面积相协调。</p>
+<p>　　3.如果摆放可容纳三、四个人的沙发，那么应该选择多大的茶几来搭配呢？</p>
+<p>　　*<em>140</em>70*45高 厘米。**在沙发的体积很大或是两个长沙发摆在一起的情况下，矮茶几就是很好的选择，高度最好和沙发坐垫的位置持平。</p>
+<p>　　4.在扶手沙发和电视机之间应该预留多大的距离？</p>
+<p>　　**3米。**这里所指的是在一个25英寸的电视与扶手沙发或长沙发之间最短的距离。此外，摆放电视机的柜面高度应该在40厘米到120厘米之间，这样才能使观众保持正确的坐姿。</p>
+<p>　　5.摆在沙发边上茶几的理想尺寸是多少？</p>
+<p>　　<strong>方形：70<em>70</em>60高 厘米。</strong></p>
+<p>　　<strong>椭圆形：70*60高 厘米。</strong></p>
+<p>　　放在沙发边上的咖啡桌应该有一个不是特别大的桌面，但要选那种较高的类型，这样即使坐着的时候也能方便舒适地取到桌上的东西。</p>
+<p>　　6.两个面对面放着的沙发和摆放在中间的茶几一共需要占据多大的空间？</p>
+<p>　　两个双人沙发（规格 <strong>160<em>90</em>80高 厘米</strong>）和茶几（规格** 100<em>60</em>45高 厘米**）之间应相距<strong>30厘米。</strong></p>
+<p>　　7.长沙发或是扶手沙发的的靠背应该有多高？</p>
+<p>　　**85至90厘米。**这样的高度可以将头完全放在靠背上，让您的颈部得到充分的放松。如果沙发的靠背和扶手过低，建议您增加一个靠垫来获得舒适。如果空间不是特别宽敞，沙发应该尽量靠墙摆放。</p>
+<p>　　8.如果客厅位于房间的中央，后面想要留出一个走道空间，这个走道应该有多宽？</p>
+<p>　　**100至120厘米。**走道的空间应该能让两个成年人迎面走过而不至于相撞，通常给每个人留出60厘米的宽度。</p>
+<p>　　9.两个对角摆放的长沙发，它们之间的最小距离应该是多少？</p>
+<p>　　**10厘米。**如果不需要留出走道的话，这种情况就能允许您再放一个茶几了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxt0307.github.io/2020/04/14/3DMAX%20%E6%89%93%E5%85%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Misaka10137">
+      <meta itemprop="description" content="个人博客 - 记录技术、生活与思考">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaka10137">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/14/3DMAX%20%E6%89%93%E5%85%89/" class="post-title-link" itemprop="url">3DMAX 打光</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-14 03:01:32" itemprop="dateCreated datePublished" datetime="2020-04-14T03:01:32+08:00">2020-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-24 23:16:04" itemprop="dateModified" datetime="2026-06-24T23:16:04+08:00">2026-06-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WordPress%E8%BF%81%E7%A7%BB/" itemprop="url" rel="index"><span itemprop="name">WordPress迁移</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>视口进行打光之后显示黑色，在视口把真实调为明暗处理。</p>
+<p>渲染之后打光区为黑色，在渲染设置，间接照明选项卡，打开GI选项</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -281,9 +1415,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
